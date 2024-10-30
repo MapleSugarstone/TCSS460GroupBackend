@@ -1,22 +1,14 @@
-// Obtain a Pool of DB connections.
-import { Pool, PoolConfig } from 'pg';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
 
-const pgConfig: PoolConfig =
-    process.env.PGHOST !== undefined
-        ? {
-              host: process.env.PGHOST,
-              port: parseInt(process.env.PGPORT),
-              user: process.env.PGUSER,
-              database: process.env.PGDATABASE,
-              password: process.env.PGPASSWORD,
-          }
-        : {
-              connectionString: process.env.DATABASE_URL,
-              ssl: {
-                  rejectUnauthorized: false,
-              },
-          };
+dotenv.config();
 
-const pool = new Pool(pgConfig);
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+});
 
 export { pool };
