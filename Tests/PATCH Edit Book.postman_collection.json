@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "efcd8d8e-76db-4fc8-a518-d1ac55f36d6a",
+		"name": "PATCH Edit Book",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39307490",
+		"_collection_link": "https://tcss-backend-project.postman.co/workspace/TCSS-Backend-Project-Workspace~5d0dbd3c-aaa7-4d5b-923f-b6e25dd456e6/collection/38937002-efcd8d8e-76db-4fc8-a518-d1ac55f36d6a?action=share&source=collection_link&creator=39307490"
+	},
+	"item": [
+		{
+			"name": "Fail - No Auth Copy 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Generate a random 13-digit ISBN number",
+							"const randomISBN13 = Math.floor(Math.random() * 1e10).toString().padStart(10, '0');",
+							"pm.environment.set(\"randomISBN13\", `978${randomISBN13}`);",
+							"",
+							"// Define the range for the publication year",
+							"const currentYear = new Date().getFullYear();",
+							"const maxYear = currentYear + 5;",
+							"",
+							"// Generate a random year between 0 and maxYear",
+							"const publication_year = Math.floor(Math.random() * (maxYear + 1));",
+							"pm.environment.set(\"randomPublicationYear\", `${publication_year}`);",
+							"",
+							"//Generate a random rating value",
+							"const randomRating = Math.floor(Math.random() * 87).toString();",
+							"pm.environment.set(\"random\", `${randomRating}`);",
+							"",
+							"// Generate a random int",
+							"const randomInt = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt\", randomInt);",
+							"",
+							"// Generate another random int",
+							"const randomInt2 = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt2\", randomInt2);",
+							"",
+							"// Generate another random int",
+							"const randomInt3 = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt3\", randomInt3);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has expected elements\", () => {",
+							"    const body = pm.response.json()",
+							"    pm.expect(body).to.not.have.ownProperty(\"accessToken\");",
+							"    pm.expect(body).to.not.have.ownProperty(\"id\");",
+							"    pm.expect(body).to.have.ownProperty(\"message\");",
+							"    pm.expect(body.message).to.equal(\"Auth token is not supplied\")",
+							"})",
+							"pm.test(\"Response is Success\", () => {",
+							"    pm.response.to.have.status(401);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isbn13\": \"{{randomISBN13}}\",\n    \"authors\": \"{{$randomLastName}}\",\n    \"publication_year\": {{randomPublicationYear}},\n    \"title\": \"{{$randomWord}}\",\n    \"rating_1_star\": \"{{randomInt}}\",\n    \"rating_2_star\": \"{{randomInt2}}\",\n    \"rating_3_star\": \"{{randomInt3}}\",\n    \"rating_4_star\": \"{{randomInt}}\",\n    \"rating_5_star\": \"{{randomInt2}}\",\n    \"image_url\": \"{{$randomBusinessImage}}\",\n    \"image_small_url\": \"{{$randomNightlifeImage}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/books/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"books",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fail - Invalid Auth Copy 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Generate a random 13-digit ISBN number",
+							"const randomISBN13 = Math.floor(Math.random() * 1e10).toString().padStart(10, '0');",
+							"pm.environment.set(\"randomISBN13\", `978${randomISBN13}`);",
+							"",
+							"// Define the range for the publication year",
+							"const currentYear = new Date().getFullYear();",
+							"const maxYear = currentYear + 5;",
+							"",
+							"// Generate a random year between 0 and maxYear",
+							"const publication_year = Math.floor(Math.random() * (maxYear + 1));",
+							"pm.environment.set(\"randomPublicationYear\", `${publication_year}`);",
+							"",
+							"//Generate a random rating value",
+							"const randomRating = Math.floor(Math.random() * 87).toString();",
+							"pm.environment.set(\"random\", `${randomRating}`);",
+							"",
+							"// Generate a random int",
+							"const randomInt = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt\", randomInt);",
+							"",
+							"// Generate another random int",
+							"const randomInt2 = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt2\", randomInt2);",
+							"",
+							"// Generate another random int",
+							"const randomInt3 = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt3\", randomInt3);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has expected elements\", () => {",
+							"    const body = pm.response.json()",
+							"    pm.expect(body).to.not.have.ownProperty(\"accessToken\");",
+							"    pm.expect(body).to.not.have.ownProperty(\"id\");",
+							"    pm.expect(body).to.have.ownProperty(\"message\");",
+							"    pm.expect(body.message).to.equal(\"Token is not valid\")",
+							"})",
+							"pm.test(\"Response is Success\", () => {",
+							"    pm.response.to.have.status(403);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "123456",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isbn13\": \"{{randomISBN13}}\",\n    \"authors\": \"{{$randomLastName}}\",\n    \"publication_year\": {{randomPublicationYear}},\n    \"title\": \"{{$randomWord}}\",\n    \"rating_1_star\": \"{{randomInt}}\",\n    \"rating_2_star\": \"{{randomInt2}}\",\n    \"rating_3_star\": \"{{randomInt3}}\",\n    \"rating_4_star\": \"{{randomInt}}\",\n    \"rating_5_star\": \"{{randomInt2}}\",\n    \"image_url\": \"{{$randomBusinessImage}}\",\n    \"image_small_url\": \"{{$randomNightlifeImage}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/books/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"books",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register For Auth Token Copy 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has expected elements\", () => {\r",
+							"    const body = pm.response.json()\r",
+							"    pm.expect(body).to.have.ownProperty(\"accessToken\");\r",
+							"    pm.expect(body).to.have.ownProperty(\"id\");\r",
+							"})\r",
+							"pm.collectionVariables.set(\"jwt\", pm.response.json().accessToken);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"{{$randomFirstName}}\",\r\n    \"lastname\": \"{{$randomLastName}}\",\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{$randomPassword}}\",\r\n    \"phone\": \"{{$randomPhoneNumber}}\",\r\n    \"role\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Success W/ All Ratings Copy 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Generate a random 13-digit ISBN number",
+							"const randomISBN13 = Math.floor(Math.random() * 1e10).toString().padStart(10, '0');",
+							"pm.environment.set(\"randomISBN13\", `978${randomISBN13}`);",
+							"",
+							"// Define the range for the publication year",
+							"const currentYear = new Date().getFullYear();",
+							"const maxYear = currentYear + 5;",
+							"",
+							"// Generate a random year between 0 and maxYear",
+							"const publication_year = Math.floor(Math.random() * (maxYear + 1));",
+							"pm.environment.set(\"randomPublicationYear\", `${publication_year}`);",
+							"",
+							"//Generate a random rating value",
+							"const randomRating = Math.floor(Math.random() * 87).toString();",
+							"pm.environment.set(\"random\", `${randomRating}`);",
+							"",
+							"// Generate a random int",
+							"const randomInt = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt\", randomInt);",
+							"",
+							"// Generate another random int",
+							"const randomInt2 = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt2\", randomInt2);",
+							"",
+							"// Generate another random int",
+							"const randomInt3 = Math.floor(Math.random() * 100) + 1;",
+							"pm.environment.set(\"randomInt3\", randomInt3);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has expected elements\", () => {",
+							"    const body = pm.response.json()",
+							"    pm.expect(body).to.have.ownProperty(\"message\");",
+							"    pm.expect(body.message).to.equal(\"New book record successfully created.\")",
+							"})",
+							"pm.test(\"Response is Success\", () => {",
+							"    pm.response.to.have.status(201);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isbn13\": \"{{randomISBN13}}\",\n    \"authors\": \"{{$randomLastName}}\",\n    \"publication_year\": {{randomPublicationYear}},\n    \"title\": \"{{$randomWord}}\",\n    \"rating_1_star\": \"{{randomInt}}\",\n    \"rating_2_star\": \"{{randomInt2}}\",\n    \"rating_3_star\": \"{{randomInt3}}\",\n    \"rating_4_star\": \"{{randomInt}}\",\n    \"rating_5_star\": \"{{randomInt2}}\",\n    \"image_url\": \"{{$randomBusinessImage}}\",\n    \"image_small_url\": \"{{$randomNightlifeImage}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/books/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"books",
+						"new"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
